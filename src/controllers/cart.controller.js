@@ -3,6 +3,8 @@ const catchAsync = require('../utils/catchAsync');
 const { productService } = require('../services');
 const pick = require('../utils/pick');
 
+// njisandfiuceshnoihnifoe
+
 const createProduct = catchAsync(async (req, res) => {
   const product = await productService.createProduct(req.body);
   res.status(httpStatus.CREATED).send(product);
