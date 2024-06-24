@@ -1,42 +1,42 @@
 const httpStatus = require('http-status');
 const catchAsync = require('../utils/catchAsync');
-const { productService } = require('../services');
+const { cartService } = require('../services');
 const pick = require('../utils/pick');
 
-const createProduct = catchAsync(async (req, res) => {
-  const product = await productService.createProduct(req.body);
-  res.status(httpStatus.CREATED).send(product);
+const createCart = catchAsync(async (req, res) => {
+  const cart = await cartService.createCart(req.body);
+  res.status(httpStatus.CREATED).send(cart);
 });
 
-const deleteProduct = catchAsync(async (req, res) => {
-  await productService.deleteProductById(req.params.productId);
+const deleteCart = catchAsync(async (req, res) => {
+  await cartService.deleteCartById(req.params.cartId);
   res.status(httpStatus.NO_CONTENT).send();
 });
 
-const updateProduct = catchAsync(async (req, res) => {
-  const product = await productService.updateProductById(req.params.productId, req.body);
-  res.send(product);
+const updateCart = catchAsync(async (req, res) => {
+  const cart = await cartService.updatecartById(req.params.cartId, req.body);
+  res.send(cart);
 });
 
-const getproducts = catchAsync(async (req, res) => {
+const getcarts = catchAsync(async (req, res) => {
   const filter = pick(req.query, ['name', 'role']);
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
-  const result = await productService.queryProducts(filter, options);
+  const result = await cartService.querycarts(filter, options);
   res.send(result);
 });
 
-const getProductById = catchAsync(async (req, res) => {
-  const product = await productService.getProductById(req.params.productId);
-  if (!product) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'product not found');
+const getCartById = catchAsync(async (req, res) => {
+  const cart = await cartService.getcartById(req.params.cartId);
+  if (!cart) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'cart not found');
   }
-  res.send(product);
+  res.send(cart);
 });
 
 module.exports = {
-  createProduct,
-  deleteProduct,
-  updateProduct,
-  getproducts,
-  getProductById,
+  createCart,
+  deleteCart,
+  updateCart,
+  getcarts,
+  getCartById,
 };
