@@ -37,7 +37,7 @@ const deleteCartById = async (cartId) => {
 //  * @returns {Promise<cart>}
 //  */
 const updateCartById = async (CartId, updateBody) => {
-  const cart = await updateCartById(CartId);
+  const cart = await getCartById(CartId);
   if (!cart) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Cart not found');
   }
@@ -57,5 +57,5 @@ module.exports = {
   deleteCartById,
   updateCartById,
   getCartById,
-  queryCart,
+  queryCarts,
 };

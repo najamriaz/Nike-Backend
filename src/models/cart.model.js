@@ -1,35 +1,22 @@
 const mongoose = require('mongoose');
 const { toJSON, paginate } = require('./plugins');
-const { number } = require('joi');
 
 const cartSchema = mongoose.Schema(
   {
-    name: {
-      type: String,
+    userId: {
+      type: mongoose.SchemaTypes.ObjectId,
       required: true,
       trim: true,
     },
     productId: {
-      type: String,
+      type: mongoose.SchemaTypes.ObjectId,
       required: true,
       trim: true,
     },
 
     quantity: {
-      type: number,
-      required: false,
-      trim: true,
-    },
-
-    productImage: {
-      type: Array,
-      required: true,
-      trim: true,
-    },
-
-    price: {
       type: Number,
-      required: true,
+      required: false,
       trim: true,
     },
   },

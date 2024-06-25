@@ -3,11 +3,9 @@ const { objectId } = require('./custom.validation');
 
 const createCart = {
   body: Joi.object().keys({
-    name: Joi.string().required(),
-    productId: Joi.string().required(),
-    productImage: Joi.array().required(),
-    price: Joi.number().required(),
+    productId: Joi.string().required().custom(objectId),
     quantity: Joi.number().required(),
+    userId: Joi.string().required().custom(objectId),
   }),
 };
 const deleteCart = {
@@ -18,17 +16,11 @@ const deleteCart = {
 
 const updateCart = {
   params: Joi.object().keys({
-    cartId: Joi.required().custom(objectId),
+    cartId: Joi.string().custom(objectId).required(),
   }),
-  body: Joi.object()
-    .keys({
-      name: Joi.string(),
-      productId: Joi.string(),
-      productImage: Joi.array(),
-      price: Joi.number(),
-      quantity: Joi.number(),
-    })
-    .min(1),
+  body: Joi.object().keys({
+    quantity: Joi.number().required(),
+  }),
 };
 const getCartById = {
   params: Joi.object().keys({

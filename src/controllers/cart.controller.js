@@ -14,19 +14,19 @@ const deleteCart = catchAsync(async (req, res) => {
 });
 
 const updateCart = catchAsync(async (req, res) => {
-  const cart = await cartService.updatecartById(req.params.cartId, req.body);
+  const cart = await cartService.updateCartById(req.params.cartId, req.body);
   res.send(cart);
 });
 
-const getcarts = catchAsync(async (req, res) => {
+const getCarts = catchAsync(async (req, res) => {
   const filter = pick(req.query, ['name', 'role']);
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
-  const result = await cartService.querycarts(filter, options);
+  const result = await cartService.queryCarts(filter, options);
   res.send(result);
 });
 
 const getCartById = catchAsync(async (req, res) => {
-  const cart = await cartService.getcartById(req.params.cartId);
+  const cart = await cartService.getCartById(req.params.cartId);
   if (!cart) {
     throw new ApiError(httpStatus.NOT_FOUND, 'cart not found');
   }
@@ -37,6 +37,6 @@ module.exports = {
   createCart,
   deleteCart,
   updateCart,
-  getcarts,
+  getCarts,
   getCartById,
 };
