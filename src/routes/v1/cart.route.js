@@ -12,8 +12,8 @@ router
 
 router
   .route('/:cartId')
-  .patch(auth('manageUsers'), validate(cartValidation.updateCart), cartController.updateCart)
-  .get(auth('manageUsers'), validate(cartValidation.getCartById), cartController.getCartById)
-  .delete(auth('manageUsers'), validate(cartValidation.deleteCart), cartController.deleteCart);
+  .patch(auth('cart'), validate(cartValidation.updateCart), cartController.updateCart)
+  .get(auth('cart'), validate(cartValidation.getCartById), cartController.getCartById)
+  .delete(auth('cart'), validate(cartValidation.deleteCart), cartController.deleteCart);
 
 module.exports = router;
