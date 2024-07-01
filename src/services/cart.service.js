@@ -1,6 +1,7 @@
 const { Cart } = require('../models');
 const httpStatus = require('http-status');
 const ApiError = require('../utils/ApiError');
+const { $where } = require('../models/token.model');
 
 /**
  * Create a Cart
@@ -48,8 +49,27 @@ const updateCartById = async (CartId, updateBody) => {
 };
 
 const queryCarts = async (filter, options) => {
-  const carts = await Cart.paginate(filter, options);
-  return carts;
+  const page = options.page || 1;
+  const limit = options.limit || 10;
+  const skip = (page - 1) * limit;
+  const carts = await Cart.aggregate()
+    .match(filter)
+    .lookup({
+      from: 'products',
+      localField: 'productId',
+      foreignField: '_id',
+      as: 'product',
+    })
+    .unwind('product')
+    .project('_id userId product.name product.catImage')
+    .sort('createdAt')
+    .skip(skip)
+    .limit(limit);
+  return {
+    page,
+    limit,
+    data: carts,
+  };
 };
 
 module.exports = {

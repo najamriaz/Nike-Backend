@@ -5,7 +5,6 @@ const createCart = {
   body: Joi.object().keys({
     productId: Joi.string().required().custom(objectId),
     quantity: Joi.number().required(),
-    userId: Joi.string().required().custom(objectId),
   }),
 };
 const deleteCart = {
@@ -29,7 +28,8 @@ const getCartById = {
 };
 const getcarts = {
   query: Joi.object().keys({
-    name: Joi.string(),
+    page: Joi.string(),
+    limit: Joi.number(),
   }),
 };
 

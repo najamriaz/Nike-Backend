@@ -4,7 +4,10 @@ const { cartService } = require('../services');
 const pick = require('../utils/pick');
 
 const createCart = catchAsync(async (req, res) => {
-  const cart = await cartService.createCart(req.body);
+  const cart = await cartService.createCart({
+    ...req.body,
+    userId: req.user.id,
+  });
   res.status(httpStatus.CREATED).send(cart);
 });
 
